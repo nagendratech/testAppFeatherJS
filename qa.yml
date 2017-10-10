@@ -1,0 +1,18 @@
+version: '3'
+services:
+  db:
+    image: mongo:3.2.16
+    expose:
+      - "27017"
+      - "37017"
+    command: --smallfiles
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-production
+    ports:
+      - "80:80"
+    env_file:
+      - environment.env
+    links:
+      - db:db
